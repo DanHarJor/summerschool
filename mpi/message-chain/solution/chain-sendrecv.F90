@@ -4,7 +4,7 @@ program basic
 
   implicit none
   integer, parameter :: size = 10000000
-  integer :: rc, rank, ntasks
+  integer :: rc, rank, ntasks, nrecv
   integer :: message(size)
   integer :: receiveBuffer(size)
   type(mpi_status) :: status
@@ -40,12 +40,15 @@ program basic
   call mpi_sendrecv(message, size, MPI_INTEGER, destination, rank + 1, &
        receiveBuffer, size, MPI_INTEGER, source, MPI_ANY_TAG, &
        MPI_COMM_WORLD, status, rc)
-  write(*,'(A10,I3,A20,I8,A,I3,A,I3)') 'Sender: ', rank, &
-          ' Sent elements: ', size, &
-          '. Tag: ', rank+1, '. Receiver: ', destination
-  write(*,'(A10,I3,A,I3)') 'Receiver: ', rank, &
-          ' First element: ', receiveBuffer(1)
 
+  call mpi_get_count(status, MPI_INTEGER, nrecv, rc)
+!   write(*,'(A10,I3,A20,I8,A,I3,A,I3)') "UNICORNSQUID"
+!   write(*,'(A10,I3,A20,I8,A,I3,A,I3)') 'S: ', rank, &
+!           ' Sent elements: ', size, &
+!           '. Tag: ', rank+1, '. Receiver: ', destination
+!   write(*,'(A10,I3,A,I3)') 'Receiver: ', rank, &
+!           ' First element: ', receiveBuffer(1)
+!   print *, 'I have recieved this many things', nrecv
   ! Finalize measuring the time and print it out
   t1 = mpi_wtime()
   call mpi_barrier(mpi_comm_world, rc)

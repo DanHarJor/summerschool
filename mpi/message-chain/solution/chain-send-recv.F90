@@ -33,7 +33,7 @@ program basic
   end if
 
   ! Start measuring the time spent in communication
-  call mpi_barrier(mpi_comm_world, rc)
+  call mpi_barrier(MPI_COMM_WORLD, rc)
   t0 = mpi_wtime()
 
   ! Send messages

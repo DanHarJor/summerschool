@@ -11,8 +11,7 @@ void print_buffers(std::vector<int> &buffer);
 int main(int argc, char *argv[])
 {
     int ntasks, rank;
-    std::vector<int> sendbuf(2 * NTASKS), recvbuf(NTASKS);
-
+    std::vector<int> sendbuf(2 * NTASKS), recvbuf(2 * NTASKS);
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &ntasks);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -85,5 +84,6 @@ void print_buffers(std::vector<int> &buffer)
             printf("\n");
         }
         printf("\n");
+        fflush(stdout);
     }
 }
